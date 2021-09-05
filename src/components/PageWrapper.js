@@ -30,10 +30,10 @@ export const PageWrapper = ({ title, children, ...rest }) => {
 
 const Footer = () => {
 	return (
-		<Flex w="100%" direction="column" alignItems="center">
+		<Flex w="100%" direction="column" alignItems="center" mt={["1.5rem","3.5rem"]}>
 			<Popover trigger="click" placement="top" >
 				<PopoverTrigger>
-					<Flex alignItems="center" mt="1.5rem">
+					<Flex alignItems="center" >
 						<Heading fontWeight="normal" fontSize={["0.75rem", "1rem"]}>Desenvolvido por&nbsp;</Heading>
 						<Heading fontSize={["0.75rem", "1rem"]} fontWeight="600" color="brand.500" cursor="pointer" >Mateus Deitos</Heading>
 					</Flex>

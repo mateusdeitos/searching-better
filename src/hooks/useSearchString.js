@@ -9,9 +9,9 @@ export const SearchStringProvider = ({ children }) => {
 
 	useEffect(() => {
 		let _searchString = formValues?.textSearch || "";
-		if (formValues?.filters?.related) {
+		if (formValues?.filters?.related && formValues?.filters?.relatedWebsite?.length > 0) {
 			_searchString = `related:${formValues?.filters?.relatedWebsite || ""} ${_searchString || ""}`;
-		} else if (formValues?.filters?.in) {
+		} else if (formValues?.filters?.in && formValues?.filters?.inWebsite?.length > 0) {
 			_searchString = `in:${formValues?.filters?.inWebsite || ""} ${_searchString || ""}`;
 		}
 

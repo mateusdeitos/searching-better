@@ -8,12 +8,13 @@ import { useForm } from '../hooks/useForm';
 export const Filters = () => {
 	const { formValues, registerField } = useForm();
 
-	const onChange = (key, handler = null) => {
+	const onChangeFilter = (key, handler = null) => {
+		handler = !!handler ? handler : (value, currentFilters) => ({ [key]: value })
 		return (value, currentForm) => {
 			const currentFilters = currentForm?.filters || {};
-			return !!handler ? handler(value, currentFilters) : {
+			return {
 				...currentFilters,
-				[key]: value,
+				...handler(value, currentFilters)
 			};
 		};
 	}
@@ -22,32 +23,36 @@ export const Filters = () => {
 
 		<VStack>
 			<Heading size="md">Filters</Heading>
-			<InputSwitch id="in" label="Search in a website" isChecked={!!formValues?.filters?.in} {...registerField('filters', onChange('in', (_in, filters) => {
-				return {
-					...filters,
-					in: _in,
-					related: _in ? false : !!filters?.related
-				}
-			}))} />
+			<InputSwitch
+				id="in"
+				label="Search in a website"
+				isChecked={!!formValues?.filters?.in}
+				{...registerField('filters', onChangeFilter('in', (_in, filters) => {
+					return {
+						in: _in,
+						related: _in ? false : !!filters?.related
+					}
+				}))} />
 
 			<UrlInput
 				id="inWebsite"
 				isDisabled={!formValues?.filters?.in}
-				{...registerField('filters', onChange('inWebsite'))}
+				{...registerField('filters', onChangeFilter('inWebsite'))}
 			/>
 
-			<InputSwitch id="in" label="Search for websites related to" isChecked={!!formValues?.filters?.related} {...registerField('filters', onChange('related', (_in, filters) => {
-				return {
-					...filters,
+			<InputSwitch
+				id="in"
+				label="Search for websites related to"
+				isChecked={!!formValues?.filters?.related}
+				{...registerField('filters', onChangeFilter('related', (related, filters) => ({
 					related,
 					in: related ? false : !!filters?.in,
-				}
-			}))} />
+				})))} />
 
 			<UrlInput
 				id="relatedWebsite"
 				isDisabled={!formValues?.filters?.related}
-				{...registerField('filters', onChange('relatedWebsite'))}
+				{...registerField('filters', onChangeFilter('relatedWebsite'))}
 			/>
 		</VStack>
 	);

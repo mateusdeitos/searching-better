@@ -6,9 +6,7 @@ export const FormProvider = ({ children }) => {
 	const [formState, setFormState] = useState({});
 
 	const updateKey = (key, value) => {
-		const newObj = formState;
-
-		setFormState({ ...formState, ...newObj, [key]: value });
+		setFormState({ ...formState, [key]: value });
 	};
 
 	const registerField = (field, handler = null) => {
@@ -29,7 +27,7 @@ export const FormProvider = ({ children }) => {
 	return <FormContext.Provider value={{
 		formValues: formState,
 		registerField,
-		updateKey
+		updateKey,
 	}}>
 		{children}
 	</FormContext.Provider>

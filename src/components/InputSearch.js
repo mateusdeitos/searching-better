@@ -8,7 +8,7 @@ import { useSearchString } from "../hooks/useSearchString";
 export const InputSearch = ({ ...props }) => {
 	const { randomColor, updateColor } = useRandomThemeColor();
 	const { searchString } = useSearchString();
-	const { registerField, formValues } = useForm();
+	const { registerField } = useForm();
 
 	const handleSearch = () => {
 		console.log(searchString);
